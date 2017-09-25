@@ -83,7 +83,11 @@ public class ServerApi {
             json.put("level", user.getLevel());
             json.put("expStationNum", user.getStationNum());
             String result = HttpUtils.post(Datas.serverIp+"addUsers", json.toString());
-
+            if(result==null || result.equals("")){
+                info.setStatus(false);
+                info.setInfo("网络故障");
+                return info;
+            }
             JSONTokener jt = new JSONTokener(result);
             JSONObject res = new JSONObject(jt);
             if(res.has("status"))
@@ -114,6 +118,11 @@ public class ServerApi {
             json.put("rePassword", user.getPassword());
 
             String result = HttpUtils.post(Datas.serverIp+"updatePassword", json.toString());
+            if(result==null || result.equals("")){
+                info.setStatus(false);
+                info.setInfo("网络故障");
+                return info;
+            }
             Log.i("修改密码", result);
             JSONTokener jt = new JSONTokener(result);
             JSONObject res = new JSONObject(jt);
@@ -198,6 +207,10 @@ public class ServerApi {
             json.put("phone", phone);
 
             String result = HttpUtils.post(Datas.serverIp+"getUserInfoByPhone", json.toString());
+            if(result==null || result.equals("")){
+                info.setSuccess(false);
+                return info;
+            }
             JSONTokener jt = new JSONTokener(result);
             JSONObject res = new JSONObject(jt);
 
@@ -265,6 +278,10 @@ public class ServerApi {
             reqJson.put("type", type);
 
             String result = HttpUtils.post(Datas.serverIp+"getExpInfo", reqJson.toString());
+            if(result==null || result.equals("")){
+                station.setSuccess(false);
+                return station;
+            }
             JSONTokener jt = new JSONTokener(result);
             JSONObject res = new JSONObject(jt);
 
@@ -348,7 +365,10 @@ public class ServerApi {
             reqJson.put("phone", phone);
 
             String result = HttpUtils.post(Datas.serverIp+"getDeliverInfo", reqJson.toString());
-            System.out.println(result);
+            if(result==null || result.equals("")){
+                express.setSuccess(false);
+                return express;
+            }
             JSONTokener jt = new JSONTokener(result);
             JSONObject res = new JSONObject(jt);
 
@@ -416,9 +436,10 @@ public class ServerApi {
             req.put("expStationNum", expStationNum);
             req.put("expStationName", expStationName);
 
-            System.out.println(req.toString());
             String result = HttpUtils.post(Datas.serverIp+"updateTrack", req.toString());
-            System.out.println(result);
+            if(result==null || result.equals("")){
+                return "网络故障";
+            }
             JSONTokener jt = new JSONTokener(result);
             JSONObject res = new JSONObject(jt);
 

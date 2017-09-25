@@ -23,6 +23,7 @@ import cn.goldlone.expressutils.model.StaffInfo;
 import cn.goldlone.expressutils.model.User;
 import cn.goldlone.expressutils.server.ServerApi;
 import cn.goldlone.expressutils.utils.ACache;
+import cn.goldlone.expressutils.utils.ShowToast;
 
 /**
  * Created by CN on 2017/8/26.
@@ -83,28 +84,37 @@ public class ManageStaffActivity extends AppCompatActivity implements AdapterVie
                 String phoneNum = sharedPreferences.getString("phoneNum", "");
                 StaffInfo info = new ServerApi().getStationStaff(sharedPreferences.getString("stationNum", ""), phoneNum);
 
-                ArrayList<User> staffs = info.getUsers();
-                for(int i=0; i<staffs.size(); i++) {
-                    Map<String, String> map = new HashMap<>();
-                    map.put("name", staffs.get(i).getName());
-                    map.put("phone", staffs.get(i).getPhone());
-                    list.add(map);
-                }
-                staffs = info.getAdmins();
-                for(int i=0; i<staffs.size(); i++) {
-                    if(staffs.get(i).getPhone().equals(phoneNum)){
+                if(info.isSuccess()){
+                    ArrayList<User> staffs = info.getUsers();
+                    for(int i=0; i<staffs.size(); i++) {
                         Map<String, String> map = new HashMap<>();
                         map.put("name", staffs.get(i).getName());
                         map.put("phone", staffs.get(i).getPhone());
                         list.add(map);
                     }
-                }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        simpleAdapter.notifyDataSetChanged();
+                    staffs = info.getAdmins();
+                    for(int i=0; i<staffs.size(); i++) {
+                        if(staffs.get(i).getPhone().equals(phoneNum)){
+                            Map<String, String> map = new HashMap<>();
+                            map.put("name", staffs.get(i).getName());
+                            map.put("phone", staffs.get(i).getPhone());
+                            list.add(map);
+                        }
                     }
-                });
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            simpleAdapter.notifyDataSetChanged();
+                        }
+                    });
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ShowToast.showToastMessage(ManageStaffActivity.this, "获取失败");
+                        }
+                    });
+                }
             }
         }.start();
     }

@@ -216,52 +216,61 @@ public class ShowStationExpressActivity extends AppCompatActivity implements Vie
         public void run() {
             station = new ServerApi().getStationExpress(stationNum, dateStr, currentPage, 1);
             Log.i("快递信息：", station.toString());
-            totalPage = station.getTotalPages();
-            infos.addAll(station.getList());
-            for(int i=allSize; i<infos.size(); i++) {
-                Map<String, String> map = new HashMap<String, String>();
-                map.put("expressNum", infos.get(i).getExpressNum());
-                switch (infos.get(i).getStatus()) {
-                    case 0:
-                        map.put("status", "运输中");
-                        break;
-                    case 1:
-                        map.put("status", "正在派送");
-                        break;
-                    case 2:
-                        map.put("status", "已签收");
-                        break;
-                    default:
-                        map.put("status", "状态码异常");
-                }
-                switch (infos.get(i).getPayMode()) {
-                    case 0:
-                        map.put("payMode", "寄方付款");
-                        break;
-                    case 1:
-                        map.put("payMode", "货到付款");
-                        break;
-                    default:
-                        map.put("payMode", "付款状态错误");
-                }
-                map.put("receiver", InfoHideUtils.hideName(infos.get(i).getReceiver()));
-                map.put("receiver_phone", InfoHideUtils.hidePhone(infos.get(i).getReceiverNum()));
-                map.put("address", infos.get(i).getReceiverAdr());
-                list.add(map);
-            }
-            allSize = list.size();
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    simpleAdapter.notifyDataSetChanged();
-                    lvStationExpress.setAdapter(simpleAdapter);
-                    if(progressDialog.isShowing()) {
-                        ShowToast.showToastMessage(ShowStationExpressActivity.this, "加载完成");
-                        progressDialog.dismiss();
+            if(station.isSuccess()) {
+                totalPage = station.getTotalPages();
+                infos.addAll(station.getList());
+                for (int i = allSize; i < infos.size(); i++) {
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put("expressNum", infos.get(i).getExpressNum());
+                    switch (infos.get(i).getStatus()) {
+                        case 0:
+                            map.put("status", "运输中");
+                            break;
+                        case 1:
+                            map.put("status", "正在派送");
+                            break;
+                        case 2:
+                            map.put("status", "已签收");
+                            break;
+                        default:
+                            map.put("status", "状态码异常");
                     }
-                    mCache.put("expressList", infos);
+                    switch (infos.get(i).getPayMode()) {
+                        case 0:
+                            map.put("payMode", "寄方付款");
+                            break;
+                        case 1:
+                            map.put("payMode", "货到付款");
+                            break;
+                        default:
+                            map.put("payMode", "付款状态错误");
+                    }
+                    map.put("receiver", InfoHideUtils.hideName(infos.get(i).getReceiver()));
+                    map.put("receiver_phone", InfoHideUtils.hidePhone(infos.get(i).getReceiverNum()));
+                    map.put("address", infos.get(i).getReceiverAdr());
+                    list.add(map);
                 }
-            });
+                allSize = list.size();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        simpleAdapter.notifyDataSetChanged();
+                        lvStationExpress.setAdapter(simpleAdapter);
+                        if (progressDialog.isShowing()) {
+                            ShowToast.showToastMessage(ShowStationExpressActivity.this, "加载完成");
+                            progressDialog.dismiss();
+                        }
+                        mCache.put("expressList", infos);
+                    }
+                });
+            } else {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ShowToast.showToastMessage(ShowStationExpressActivity.this, "获取失败");
+                    }
+                });
+            }
         }
     }
 
