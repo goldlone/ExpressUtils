@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f0f0f0"
+    android:layout_marginBottom="120dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="隐藏拨号"
+        android:layout_marginTop="40dp"
+        android:textAlignment="center"
+        android:textSize="50sp"
+        android:textColor="#000"
+        />
+
+    <TextView
+        android:id="@+id/calling_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="王**"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textColor="#000"
+        />
+
+    <TextView
+        android:id="@+id/calling_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="184****7057"
+        android:layout_marginTop="5dp"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textColor="#000"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f0f0f0"
+        android:text="\n\n\n\n\n\n\n\n\n\n\n"
+        />
+
+</LinearLayout>
