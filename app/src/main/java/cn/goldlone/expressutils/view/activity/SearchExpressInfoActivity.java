@@ -139,32 +139,33 @@ public class SearchExpressInfoActivity extends AppCompatActivity implements Sear
                 jt = new JSONTokener(result);
                 res = new JSONObject(jt);
                 if(res.has("status")){
-                    if(res.getBoolean("status")){
+                    if(!res.getBoolean("status")){
                         result = HttpUtils.getExpress(expressNum);
+                        Log.i("快递信息2：", result);
                         jt = new JSONTokener(result);
                         res = new JSONObject(jt);
-                        Log.i("快递信息2：", result);
                     }
+                }
+                if(res.has("data")) {
+                    JSONArray arr = res.getJSONArray("data");
+                    for (int i = 0; i < arr.length(); i++) {
+                        Map<String, String> map = new HashMap<>();
+                        map.put("context", arr.getJSONObject(i).getString("context"));
+                        map.put("time", arr.getJSONObject(i).getString("time"));
+                        list.add(map);
+                    }
+                    if (res.has("company"))
+                        company = res.getString("company");
+                    else
+                        company = getString(R.string.app_name);
 
+                    if (res.getBoolean("success")) {
+                        success = "已签收";
+                    } else {
+                        success = "正在路上";
+                    }
+                    handler.post(showTrack);
                 }
-                JSONArray arr = res.getJSONArray("data");
-                for(int i=0; i<arr.length(); i++) {
-                    Map<String, String> map = new HashMap<>();
-                    map.put("context", arr.getJSONObject(i).getString("context"));
-                    map.put("time", arr.getJSONObject(i).getString("time"));
-                    list.add(map);
-                }
-                if(res.has("company"))
-                    company = res.getString("company");
-                else
-                    company = getString(R.string.app_name);
-
-                if(res.getBoolean("success")) {
-                    success = "已签收";
-                } else {
-                    success = "正在路上";
-                }
-                handler.post(showTrack);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
