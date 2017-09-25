@@ -434,18 +434,14 @@ public class ServerApi {
      * 获取物流轨迹
      * @param expressNum
      */
-    public void getTrack(String expressNum) {
+    public String getTrack(String expressNum) {
         JSONObject req = new JSONObject();
         try {
             req.put("expressNum", expressNum);
-            String result = HttpUtils.post(Datas.serverIp+"getTrack", req.toString());
-            JSONTokener jt = new JSONTokener(result);
-            JSONObject res = new JSONObject(jt);
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
+            return HttpUtils.post(Datas.serverIp+"getTrack", req.toString());
     }
 
 

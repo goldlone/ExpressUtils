@@ -28,6 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.goldlone.expressutils.R;
+import cn.goldlone.expressutils.server.ServerApi;
 import cn.goldlone.expressutils.utils.HttpUtils;
 import cn.goldlone.expressutils.utils.ShowToast;
 
@@ -124,10 +125,28 @@ public class SearchExpressInfoActivity extends AppCompatActivity implements Sear
         public void run() {
             try {
                 list.removeAll(list);
-                String result = HttpUtils.getExpress(expressNum);
-                Log.i("快递信息：", result);
-                JSONTokener jt = new JSONTokener(result);
-                JSONObject res = new JSONObject(jt);
+                JSONTokener jt;
+                JSONObject res;
+                String result = new ServerApi().getTrack(expressNum);
+                if(result==null || result.equals("")) {
+                    result = HttpUtils.getExpress(expressNum);
+                }
+                if(result==null || result.equals("")){
+                    handler.post(failTips);
+                    return;
+                }
+                Log.i("快递信息1：", result);
+                jt = new JSONTokener(result);
+                res = new JSONObject(jt);
+                if(res.has("status")){
+                    if(res.getBoolean("status")){
+                        result = HttpUtils.getExpress(expressNum);
+                        jt = new JSONTokener(result);
+                        res = new JSONObject(jt);
+                        Log.i("快递信息2：", result);
+                    }
+
+                }
                 JSONArray arr = res.getJSONArray("data");
                 for(int i=0; i<arr.length(); i++) {
                     Map<String, String> map = new HashMap<>();
@@ -135,7 +154,11 @@ public class SearchExpressInfoActivity extends AppCompatActivity implements Sear
                     map.put("time", arr.getJSONObject(i).getString("time"));
                     list.add(map);
                 }
-                company = res.getString("company");
+                if(res.has("company"))
+                    company = res.getString("company");
+                else
+                    company = getString(R.string.app_name);
+
                 if(res.getBoolean("success")) {
                     success = "已签收";
                 } else {
@@ -163,6 +186,9 @@ public class SearchExpressInfoActivity extends AppCompatActivity implements Sear
         return true;
     }
 
+    /**
+     * 展示查询结果
+     */
     private Runnable showTrack = new Runnable() {
         @Override
         public void run() {
@@ -171,6 +197,13 @@ public class SearchExpressInfoActivity extends AppCompatActivity implements Sear
             setListViewHeightBasedOnChildren(lvTrack);
             tvCompany.setText(company);
             tvSuccess.setText(success);
+        }
+    };
+
+    private Runnable failTips = new Runnable() {
+        @Override
+        public void run() {
+            ShowToast.showToastMessage(SearchExpressInfoActivity.this, "无查询结果");
         }
     };
 
