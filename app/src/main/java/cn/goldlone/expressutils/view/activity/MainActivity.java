@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String userPhone;
     private ServerApi api;
     private String firstSecret1;
+    private String firstSecret2;
     private int selected;
     private TextView callingName;
     private TextView callingNum;
@@ -144,7 +145,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 navigationView.getMenu().removeItem(R.id.drawer_item_manager_staff);
                 break;
             case 2:
-//                navigationView.getMenu().removeItem(R.id.drawer_item_staff);
                 break;
         }
 
@@ -261,8 +261,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             try {
                 if(firstSecret1 != null) {
                     Log.i("本站点第一类密钥：", firstSecret1);
-                    decryptNum = Integer.parseInt(RSA.decryptByPrivate(encryptNum, firstSecret1));
-                    Log.i("解密后算法编号：", ""+decryptNum);
+                    try {
+                        decryptNum = Integer.parseInt(RSA.decryptByPrivate(encryptNum, firstSecret1));
+                        Log.i("解密后算法编号：", "" + decryptNum);
+                    } catch (Exception e){
+                        // 如果第一个密钥解密失败，使用先前的解密密钥
+                        decryptNum = Integer.parseInt(RSA.decryptByPrivate(encryptNum, firstSecret2));
+                        Log.i("解密后算法编号：", "" + decryptNum);
+                        e.printStackTrace();
+                    }
                 }
                 else {
                     ShowToast.showDefaultToastMessage(MainActivity.this, "请先获取本站点密钥", 2000);
@@ -432,11 +439,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     firstSecret1 = sharedPreferences.getString("firstSecret1", null);
                 else
                     firstSecret1 = "";
+                if(sharedPreferences.contains("firstSecret2"))
+                    firstSecret2 = sharedPreferences.getString("firstSecret2", "");
+                else
+                    firstSecret2 = "";
                 if(key != null) {
                     Log.i("第一类密钥请求信息：", key.toString());
-                    if (key.isUpdate() || firstSecret1.equals("") || firstSecret1==null) {
-                        editor.putString("firstSecret1", key.getPrivateKey());
+                    if(firstSecret1.equals("") || firstSecret1==null){
+                        firstSecret1 = key.getPrivateKey();
+                        editor.putString("firstSecret1", firstSecret1);
                         editor.putString("firstSecret2", firstSecret1);
+                        editor.commit();
+                    }
+                    if (key.isUpdate()) {
+                        editor.putString("firstSecret1", key.getPrivateKey());
                         editor.commit();
                         firstSecret1 = key.getPrivateKey();
                     }
