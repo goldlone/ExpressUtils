@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="快递信息" android:id="@+id/drawer_item_manager_express">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/item_show_all_express"
+                    android:icon="@mipmap/all_express"
+                    android:title="查看本站快递" />
+                <item
+                    android:id="@+id/item_search_express_info"
+                    android:icon="@mipmap/search_express"
+                    android:title="查询快递信息" />
+                <item
+                    android:id="@+id/item_update_track"
+                    android:icon="@mipmap/update_express_track"
+                    android:title="更新物流轨迹" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="员工管理" android:id="@+id/drawer_item_manager_staff">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/item_manage_staff"
+                    android:icon="@mipmap/manage_staff"
+                    android:title="查看员工" />
+                <item
+                    android:id="@+id/item_add_staff"
+                    android:icon="@mipmap/add_staff"
+                    android:title="添加员工" />
+            </group>
+        </menu>
+    </item>
+
+    <!--<item android:title="员工端" android:id="@+id/drawer_item_staff">-->
+        <!--<menu>-->
+            <!--<group android:checkableBehavior="single">-->
+                <!--<item-->
+                    <!--android:id="@+id/item_show_gone_express"-->
+                    <!--android:icon="@mipmap/all_express"-->
+                    <!--android:title="已派快递"/>-->
+            <!--</group>-->
+        <!--</menu>-->
+    <!--</item>-->
+
+    <item android:title="设置">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/item_update_password"
+                    android:icon="@mipmap/update_password"
+                    android:title="修改密码"/>
+                <item
+                    android:id="@+id/item_log_off"
+                    android:icon="@mipmap/log_off"
+                    android:title="注销登录"/>
+            </group>
+        </menu>
+    </item>
+
+</menu>
