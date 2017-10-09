@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/back">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@drawable/shape_login_input_border"
+        android:id="@+id/phoneLayout"
+        android:layout_marginLeft="50dp"
+        android:layout_above="@+id/passwordLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/phone"
+            android:layout_marginLeft="10dp"/>
+
+        <EditText
+            android:id="@+id/phone_num"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="60dp"
+            android:layout_centerVertical="true"
+            android:inputType="phone"
+            android:hint="手机号"
+            android:textColor="#f0f0f0"
+            android:textColorHint="#f0f0f0"
+            android:background="@null"
+            android:textCursorDrawable="@null" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@drawable/shape_login_input_border"
+        android:id="@+id/passwordLayout"
+        android:layout_marginLeft="50dp"
+        android:layout_above="@+id/smsVerification_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/password"/>
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="60dp"
+            android:layout_centerVertical="true"
+            android:inputType="textPassword"
+            android:textColor="#f0f0f0"
+            android:hint="密码"
+            android:textColorHint="#f0f0f0"
+            android:background="@null"
+            android:textCursorDrawable="@null" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@drawable/shape_login_input_border"
+        android:id="@+id/smsVerification_layout"
+        android:layout_marginLeft="50dp"
+        android:layout_above="@+id/btn_regist"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/sms"/>
+
+        <EditText
+            android:id="@+id/sms_verification"
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="60dp"
+            android:layout_centerVertical="true"
+            android:inputType="number"
+            android:textColor="#f0f0f0"
+            android:hint="验证码"
+            android:textColorHint="#f0f0f0"
+            android:background="@null"
+            android:textCursorDrawable="@null"
+            android:maxLength="6"
+            />
+
+        <Button
+            android:id="@+id/btn_get_sms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_get_verification"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:text="获取验证码"
+            />
+
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/btn_regist"
+        android:background="@drawable/shape_btn_login"
+        android:text="注册"
+        android:textColor="#fff"
+        android:textSize="25sp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginBottom="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:layout_marginBottom="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已经有一个账户了吗？"
+            android:textColor="#778899"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登录"
+            android:textColor="#fff"
+            android:id="@+id/toLogin"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>

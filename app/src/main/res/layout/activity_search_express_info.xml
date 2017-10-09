@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 标题bar -->
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#4CAF50"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/search_express"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"></android.support.v7.widget.SearchView>
+
+
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:scrollbars="vertical"-->
+        <!--&gt;-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="运单状态："
+                    android:textSize="20sp"
+                    android:textColor="#000"
+                    />
+                <TextView
+                    android:id="@+id/tv_express_success"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="#000"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="快递公司："
+                    android:textSize="20sp"
+                    android:textColor="#000"
+                    />
+                <TextView
+                    android:id="@+id/tv_express_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="#000"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="快递轨迹："
+                android:textSize="20sp"
+                android:textColor="#000"
+                />
+
+
+            <ListView
+                android:id="@+id/lv_express_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:divider="@null">
+            </ListView>
+
+
+        </LinearLayout>
+
+
+
+    <!--</ScrollView>-->
+
+</LinearLayout>
