@@ -49,6 +49,7 @@ import cn.goldlone.expressutils.model.UpdateFirstSecret;
 import cn.goldlone.expressutils.server.ServerApi;
 import cn.goldlone.expressutils.utils.Contact;
 import cn.goldlone.expressutils.utils.DeleteInfoThread;
+import cn.goldlone.expressutils.utils.InfoHideUtils;
 import cn.goldlone.expressutils.utils.ShowToast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener{
@@ -321,13 +322,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Contact contact = new Contact(MainActivity.this, phone);
                         switch (selected) {
                             case 0:
-                                callingName.setText(receiver.substring(0, 1)+"**");
-                                callingNum.setText(phone.substring(0, 3)+"****"+phone.substring(7));
+                                callingName.setText(InfoHideUtils.hideName(receiver));
+                                callingNum.setText(InfoHideUtils.hidePhone(phone));
                                 contact.call();
                                 listionpho();
                                 break;
                             case 1:
-                                String message = "【"+getString(R.string.app_name)+"】请在18:00前凭提货码(111350)至*******************领走快递";
+                                String message = "【"+getString(R.string.app_name)+"】请在18:00前至"+sharedPreferences.getString("stationName", getString(R.string.app_name))+"领走快递";
                                 contact.sendSMS(message);
                                 break;
                         }
@@ -391,9 +392,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         WindowManager manager=(WindowManager) getApplicationContext().getSystemService(WINDOW_SERVICE);
         WindowManager.LayoutParams params = new WindowManager.LayoutParams();
         // 此处需要悬浮窗权限
-//        params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT ;//| WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
+        params.type = /*WindowManager.LayoutParams.TYPE_SYSTEM_ALERT ;//| */WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY;
         // 做此处理便无需悬浮窗权限
-        params.type = WindowManager.LayoutParams.TYPE_TOAST;
+//        params.type = WindowManager.LayoutParams.TYPE_TOAST;
 
         // 设置行为选项
         params.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;

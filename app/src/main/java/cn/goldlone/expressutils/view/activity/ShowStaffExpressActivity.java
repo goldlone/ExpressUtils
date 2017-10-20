@@ -79,7 +79,7 @@ public class ShowStaffExpressActivity extends AppCompatActivity implements View.
         calendar = Calendar.getInstance();
         dateStr = calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(staffName+"派送信息("+dateStr+")");
+        toolbar.setTitle(staffName+"("+dateStr+")");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

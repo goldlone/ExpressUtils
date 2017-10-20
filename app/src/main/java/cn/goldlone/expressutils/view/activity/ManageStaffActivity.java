@@ -85,21 +85,21 @@ public class ManageStaffActivity extends AppCompatActivity implements AdapterVie
                 StaffInfo info = new ServerApi().getStationStaff(sharedPreferences.getString("stationNum", ""), phoneNum);
 
                 if(info.isSuccess()){
-                    ArrayList<User> staffs = info.getUsers();
+                    ArrayList<User> staffs = info.getAdmins();
+                    for(int i=0; i<staffs.size(); i++) {
+//                        if(staffs.get(i).getPhone().equals(phoneNum)){
+                        Map<String, String> map = new HashMap<>();
+                        map.put("name", staffs.get(i).getName()+"（管理员）");
+                        map.put("phone", staffs.get(i).getPhone());
+                        list.add(map);
+//                        }
+                    }
+                    staffs = info.getUsers();
                     for(int i=0; i<staffs.size(); i++) {
                         Map<String, String> map = new HashMap<>();
                         map.put("name", staffs.get(i).getName());
                         map.put("phone", staffs.get(i).getPhone());
                         list.add(map);
-                    }
-                    staffs = info.getAdmins();
-                    for(int i=0; i<staffs.size(); i++) {
-                        if(staffs.get(i).getPhone().equals(phoneNum)){
-                            Map<String, String> map = new HashMap<>();
-                            map.put("name", staffs.get(i).getName());
-                            map.put("phone", staffs.get(i).getPhone());
-                            list.add(map);
-                        }
                     }
                     runOnUiThread(new Runnable() {
                         @Override

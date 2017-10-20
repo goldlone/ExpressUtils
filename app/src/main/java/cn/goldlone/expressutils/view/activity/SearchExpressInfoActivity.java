@@ -158,11 +158,14 @@ public class SearchExpressInfoActivity extends AppCompatActivity implements Sear
                         company = res.getString("company");
                     else
                         company = getString(R.string.app_name);
-
-                    if (res.getBoolean("success")) {
-                        success = "已签收";
+                    if(res.has("success")) {
+                        if (res.getBoolean("success")) {
+                            success = "已签收";
+                        } else {
+                            success = "正在路上";
+                        }
                     } else {
-                        success = "正在路上";
+                        success = "";
                     }
                     handler.post(showTrack);
                 }
@@ -195,7 +198,7 @@ public class SearchExpressInfoActivity extends AppCompatActivity implements Sear
         public void run() {
             simpleAdapter = new SimpleAdapter(SearchExpressInfoActivity.this, list, R.layout.item_express_track_info, new String[]{"context", "time"}, new int[]{R.id.tv_express_track_context, R.id.tv_express_track_time});
             lvTrack.setAdapter(simpleAdapter);
-            setListViewHeightBasedOnChildren(lvTrack);
+//            setListViewHeightBasedOnChildren(lvTrack);
             tvCompany.setText(company);
             tvSuccess.setText(success);
         }

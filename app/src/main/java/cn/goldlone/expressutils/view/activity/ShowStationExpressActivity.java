@@ -254,6 +254,10 @@ public class ShowStationExpressActivity extends AppCompatActivity implements Vie
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        if (station.getTotalRecords() == 0){
+                            ShowToast.showDefaultToastMessage(ShowStationExpressActivity.this, "今日无物流信息", 1500);
+                            return;
+                        }
                         simpleAdapter.notifyDataSetChanged();
                         lvStationExpress.setAdapter(simpleAdapter);
                         if (progressDialog.isShowing()) {
